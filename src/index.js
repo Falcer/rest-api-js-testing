@@ -18,23 +18,23 @@ app.get("/", (req, res) => {
 app.get("/:id", (req, res) => {
   const id = req.params["id"];
   let todo = null;
-  TODO_DATABASE.forEach(item => {
-    if(item.id == id) {
+  TODO_DATABASE.forEach((item) => {
+    if (item.id == id) {
       todo = item;
     }
   });
-  if(todo === null) {
-    res.status(400).send({
+  if (todo === null) {
+    res.status(404).send({
       success: false,
-      message: "Todo not found"
-    })
-    return
+      message: "Todo not found",
+    });
+    return;
   }
   res.send({
     success: true,
-    message: `Get todo by id ${id}`, 
-    data: todo
-  })
+    message: `Get todo by id ${id}`,
+    data: todo,
+  });
 });
 // Create new todo
 app.post("/", (req, res) => {
@@ -42,30 +42,30 @@ app.post("/", (req, res) => {
     id: Date.now(),
     title: req.body["title"],
     done: false,
-    created_at: (new Date()).toISOString()
+    created_at: new Date().toISOString(),
   };
   TODO_DATABASE.push(todo); // INSERT INTO
   res.send({
     success: true,
     message: "Todo Created",
-    data: todo
-  })
+    data: todo,
+  });
 });
 // Update todo by :id
 app.put("/:id", (req, res) => {
   res.send({
-    "success": true,
-    "message": "Update todo by id 1"
-  })
+    success: true,
+    message: "Update todo by id 1",
+  });
 });
 // Delete todo by :id
 app.delete("/:id", (req, res) => {
   res.send({
-    "success": true,
-    "message": "Delete todo by id 1"
-  })
+    success: true,
+    message: "Delete todo by id 1",
+  });
 });
 
 app.listen("8000", () => {
-  console.log("Server running at http://localhost:8000 🚀")
-})
+  console.log("Server running at http://localhost:8000 🚀");
+});
