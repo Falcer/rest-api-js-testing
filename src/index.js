@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
 
-let TODO_DATABASE = [];
+let TODO_DATABASE = [{ id: 1, title: "Todo 1" }];
 
 // Get all todo
 app.get("/", (req, res) => {
